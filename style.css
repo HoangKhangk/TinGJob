@@ -1,0 +1,678 @@
+/* ========================================
+   CSS Variables & Design Tokens
+   Light theme inspired by TinGJob orange logo
+   ======================================== */
+:root {
+    --bg-primary: #fff7f0;
+    --bg-secondary: #fff0e3;
+    --bg-card: rgba(255, 255, 255, 0.75);
+    --bg-card-hover: rgba(255, 255, 255, 0.95);
+
+    --text-primary: #2d1b06;
+    --text-secondary: rgba(45, 27, 6, 0.6);
+    --text-muted: rgba(45, 27, 6, 0.35);
+
+    --accent-orange: #e8711a;
+    --accent-amber: #f5a623;
+    --accent-deep: #c95a10;
+    --accent-warm: #ff9a44;
+
+    --gradient-main: linear-gradient(135deg, #e8711a, #f5a623);
+    --gradient-warm: linear-gradient(135deg, #ff8c32, #ffc76d);
+    --gradient-hero: linear-gradient(160deg, #fff7f0 0%, #ffe8d4 40%, #ffd6b8 70%, #fff0e3 100%);
+
+    --tiktok-color: #fe2c55;
+    --tiktok-secondary: #25f4ee;
+    --youtube-color: #ff0000;
+    --facebook-color: #1877f2;
+
+    --border-glass: rgba(232, 113, 26, 0.12);
+    --border-card: rgba(232, 113, 26, 0.08);
+    --shadow-soft: 0 8px 32px rgba(232, 113, 26, 0.12);
+    --shadow-card: 0 4px 16px rgba(232, 113, 26, 0.08);
+    --shadow-glow: 0 0 60px rgba(245, 166, 35, 0.15);
+
+    --radius-sm: 14px;
+    --radius-md: 18px;
+    --radius-lg: 24px;
+    --radius-full: 50%;
+
+    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ========================================
+   Reset & Base
+   ======================================== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-main);
+    background: var(--gradient-hero);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========================================
+   Animated Background
+   ======================================== */
+.bg-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.35;
+    animation: orbFloat 20s ease-in-out infinite;
+}
+
+.bg-orb-1 {
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(232, 113, 26, 0.35), transparent);
+    top: -12%;
+    left: -8%;
+    animation-duration: 18s;
+}
+
+.bg-orb-2 {
+    width: 380px;
+    height: 380px;
+    background: radial-gradient(circle, rgba(245, 166, 35, 0.3), transparent);
+    top: 45%;
+    right: -12%;
+    animation-duration: 22s;
+    animation-delay: -5s;
+}
+
+.bg-orb-3 {
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(255, 154, 68, 0.25), transparent);
+    bottom: -8%;
+    left: 25%;
+    animation-duration: 25s;
+    animation-delay: -10s;
+}
+
+.bg-orb-4 {
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgba(255, 199, 109, 0.3), transparent);
+    top: 25%;
+    left: 55%;
+    animation-duration: 20s;
+    animation-delay: -7s;
+}
+
+@keyframes orbFloat {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+    25% {
+        transform: translate(40px, -30px) scale(1.1);
+    }
+    50% {
+        transform: translate(-20px, 40px) scale(0.95);
+    }
+    75% {
+        transform: translate(30px, 20px) scale(1.05);
+    }
+}
+
+/* ========================================
+   Particle Canvas
+   ======================================== */
+#particleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ========================================
+   Main Container
+   ======================================== */
+.container {
+    position: relative;
+    z-index: 2;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 50px 20px 60px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+}
+
+/* ========================================
+   Profile Section
+   ======================================== */
+.profile {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease-out 0.2s forwards;
+}
+
+/* Avatar */
+.avatar-wrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+.avatar-ring {
+    position: absolute;
+    inset: -5px;
+    border-radius: var(--radius-lg);
+    background: var(--gradient-main);
+    animation: ringPulse 3s ease-in-out infinite;
+    box-shadow: 0 4px 24px rgba(232, 113, 26, 0.3);
+}
+
+.avatar {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 20px;
+    object-fit: cover;
+    border: 3px solid #fff;
+    z-index: 1;
+    transition: transform var(--transition-bounce);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.avatar:hover {
+    transform: scale(1.08);
+}
+
+@keyframes ringPulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.07);
+    }
+}
+
+/* Brand Name */
+.brand-name {
+    font-size: 2.4rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    text-shadow: 0 2px 8px rgba(232, 113, 26, 0.3);
+}
+
+.brand-ting {
+    color: #ffffff;
+}
+
+.brand-g {
+    color: #ffffff;
+}
+
+.brand-job {
+    color: #ffffff;
+}
+
+/* Tagline */
+.tagline {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    max-width: 300px;
+    line-height: 1.5;
+}
+
+/* ========================================
+   Links Section
+   ======================================== */
+.links {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* Link Card */
+.link-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    text-decoration: none;
+    color: var(--text-primary);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all var(--transition-smooth);
+    opacity: 0;
+    transform: translateY(30px);
+    box-shadow: var(--shadow-card);
+}
+
+.link-card:nth-child(1) {
+    animation: fadeInUp 0.7s ease-out 0.4s forwards;
+}
+
+.link-card:nth-child(2) {
+    animation: fadeInUp 0.7s ease-out 0.55s forwards;
+}
+
+.link-card:nth-child(3) {
+    animation: fadeInUp 0.7s ease-out 0.7s forwards;
+}
+
+.link-card:hover {
+    transform: translateY(-3px) scale(1.02);
+    background: var(--bg-card-hover);
+    box-shadow: var(--shadow-soft);
+    border-color: transparent;
+}
+
+.link-card:active {
+    transform: translateY(0) scale(0.99);
+}
+
+/* Icon Wrapper */
+.link-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-smooth);
+}
+
+.link-icon {
+    width: 24px;
+    height: 24px;
+    color: #fff;
+    transition: transform var(--transition-bounce);
+}
+
+.link-card:hover .link-icon {
+    transform: scale(1.15);
+}
+
+/* Platform-specific backgrounds */
+.tiktok-bg {
+    background: linear-gradient(135deg, #fe2c55, #25f4ee);
+    box-shadow: 0 4px 18px rgba(254, 44, 85, 0.25);
+}
+
+.link-card:hover .tiktok-bg {
+    box-shadow: 0 6px 28px rgba(254, 44, 85, 0.4);
+}
+
+.youtube-bg {
+    background: linear-gradient(135deg, #ff0000, #ff5252);
+    box-shadow: 0 4px 18px rgba(255, 0, 0, 0.25);
+}
+
+.link-card:hover .youtube-bg {
+    box-shadow: 0 6px 28px rgba(255, 0, 0, 0.4);
+}
+
+.facebook-bg {
+    background: linear-gradient(135deg, #1877f2, #42a5f5);
+    box-shadow: 0 4px 18px rgba(24, 119, 242, 0.25);
+}
+
+.link-card:hover .facebook-bg {
+    box-shadow: 0 6px 28px rgba(24, 119, 242, 0.4);
+}
+
+/* Link Content */
+.link-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.link-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+}
+
+.link-subtitle {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+/* Arrow */
+.link-arrow {
+    width: 20px;
+    height: 20px;
+    color: var(--text-muted);
+    transition: all var(--transition-smooth);
+}
+
+.link-arrow svg {
+    width: 100%;
+    height: 100%;
+}
+
+.link-card:hover .link-arrow {
+    color: var(--accent-orange);
+    transform: translateX(4px);
+}
+
+/* Shine Effect */
+.link-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.35),
+        transparent
+    );
+    transition: none;
+    pointer-events: none;
+}
+
+.link-card:hover .link-shine {
+    left: 120%;
+    transition: left 0.6s ease;
+}
+
+/* Card border glow on hover */
+#link-tiktok:hover {
+    border-color: rgba(254, 44, 85, 0.25);
+}
+
+#link-youtube:hover {
+    border-color: rgba(255, 0, 0, 0.25);
+}
+
+#link-facebook:hover {
+    border-color: rgba(24, 119, 242, 0.25);
+}
+
+/* ========================================
+   Footer
+   ======================================== */
+.footer {
+    opacity: 0;
+    animation: fadeInUp 0.7s ease-out 0.9s forwards;
+    transform: translateY(20px);
+}
+
+.footer p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: center;
+    letter-spacing: 0.02em;
+}
+
+/* ========================================
+   Animations
+   ======================================== */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   Responsive Design - Mobile First
+   ======================================== */
+
+/* Small phones (iPhone SE, Galaxy S series) */
+@media (max-width: 380px) {
+    .container {
+        padding: 24px 14px 40px;
+        gap: 22px;
+    }
+
+    .avatar-wrapper {
+        width: 90px;
+        height: 90px;
+    }
+
+    .avatar {
+        width: 90px;
+        height: 90px;
+        border-radius: 16px;
+    }
+
+    .avatar-ring {
+        border-radius: 20px;
+    }
+
+    .brand-name {
+        font-size: 1.7rem;
+    }
+
+    .tagline {
+        font-size: 0.85rem;
+        max-width: 250px;
+    }
+
+    .link-card {
+        padding: 14px 14px;
+        gap: 12px;
+    }
+
+    .link-icon-wrapper {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+        border-radius: 10px;
+    }
+
+    .link-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .link-title {
+        font-size: 0.95rem;
+    }
+
+    .link-subtitle {
+        font-size: 0.75rem;
+    }
+
+    .bg-orb-1 {
+        width: 200px;
+        height: 200px;
+    }
+
+    .bg-orb-2 {
+        width: 160px;
+        height: 160px;
+    }
+
+    .bg-orb-3, .bg-orb-4 {
+        width: 140px;
+        height: 140px;
+    }
+}
+
+/* Standard phones */
+@media (min-width: 381px) and (max-width: 520px) {
+    .container {
+        padding: 30px 16px 50px;
+        gap: 28px;
+    }
+
+    .avatar-wrapper {
+        width: 100px;
+        height: 100px;
+    }
+
+    .avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 18px;
+    }
+
+    .avatar-ring {
+        border-radius: 22px;
+    }
+
+    .brand-name {
+        font-size: 2rem;
+    }
+
+    .link-card {
+        padding: 15px 16px;
+    }
+
+    .bg-orb-1 {
+        width: 280px;
+        height: 280px;
+    }
+
+    .bg-orb-2 {
+        width: 230px;
+        height: 230px;
+    }
+
+    .bg-orb-3 {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+/* Tablets & larger screens */
+@media (min-width: 768px) {
+    .container {
+        padding: 60px 20px 80px;
+    }
+
+    .avatar-wrapper {
+        width: 140px;
+        height: 140px;
+    }
+
+    .avatar {
+        width: 140px;
+        height: 140px;
+        border-radius: 24px;
+    }
+
+    .avatar-ring {
+        border-radius: 28px;
+    }
+
+    .brand-name {
+        font-size: 2.8rem;
+    }
+
+    .link-card {
+        padding: 20px 24px;
+    }
+
+    .link-icon-wrapper {
+        width: 52px;
+        height: 52px;
+        min-width: 52px;
+    }
+}
+
+/* Safe area for phones with notch */
+@supports (padding: env(safe-area-inset-bottom)) {
+    .container {
+        padding-bottom: calc(40px + env(safe-area-inset-bottom));
+        padding-left: calc(16px + env(safe-area-inset-left));
+        padding-right: calc(16px + env(safe-area-inset-right));
+    }
+}
+
+/* Touch-friendly: larger tap targets on mobile */
+@media (hover: none) and (pointer: coarse) {
+    .link-card {
+        min-height: 64px;
+    }
+
+    /* Disable 3D tilt on touch devices - handled in JS but fallback here */
+    .link-card:hover {
+        transform: none;
+    }
+
+    .link-card:active {
+        transform: scale(0.98);
+        background: var(--bg-card-hover);
+    }
+}
+
+/* ========================================
+   Selection & Scrollbar
+   ======================================== */
+::selection {
+    background: rgba(232, 113, 26, 0.2);
+    color: var(--text-primary);
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(232, 113, 26, 0.2);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(232, 113, 26, 0.35);
+}
